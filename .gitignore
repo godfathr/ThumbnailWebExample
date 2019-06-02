@@ -1,7 +1,9 @@
-﻿*.vs
-bin/
-obj/
-App_Data/
+﻿/bin/*
+/obj/*
+/App_Data/*
+/fonts/*
+/packages/*
+*.vs
 *.csproj.user
 *.png
 *thumb_*

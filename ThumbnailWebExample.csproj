@@ -45,8 +45,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ImageThumbnailCreator, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageThumbnailCreator.1.0.1\lib\net461\ImageThumbnailCreator.dll</HintPath>
+    <Reference Include="ImageThumbnailCreator, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageThumbnailCreator.2.0.0\lib\net461\ImageThumbnailCreator.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -136,6 +136,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -159,6 +160,7 @@
     <Content Include="packages\bootstrap.3.3.7\content\Scripts\bootstrap.js" />
     <Content Include="packages\bootstrap.3.3.7\content\Scripts\bootstrap.min.js" />
     <Content Include="packages\ImageThumbnailCreator.1.0.1\lib\net461\ImageThumbnailCreator.dll" />
+    <Content Include="LICENSE" />
     <None Include="packages\jQuery.3.3.1\Content\Scripts\jquery-3.3.1-vsdoc.js" />
     <Content Include="packages\jQuery.3.3.1\Content\Scripts\jquery-3.3.1.js" />
     <Content Include="packages\jQuery.3.3.1\Content\Scripts\jquery-3.3.1.min.js" />
@@ -279,7 +281,6 @@
     <Content Include="packages\WebGrease.1.6.0\lib\WebGrease.dll" />
     <Content Include="packages\WebGrease.1.6.0\tools\WG.EXE" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include=".gitignore" />
     <Content Include="packages\Antlr.3.5.0.2\Antlr.3.5.0.2.nupkg" />
     <Content Include="packages\bootstrap.3.3.7\bootstrap.3.3.7.nupkg" />
@@ -356,32 +357,21 @@
     <Content Include="packages\System.Diagnostics.DiagnosticSource.4.4.1\ref\netcoreapp2.0\_._" />
     <Content Include="packages\System.Diagnostics.DiagnosticSource.4.4.1\System.Diagnostics.DiagnosticSource.4.4.1.nupkg" />
     <Content Include="packages\WebGrease.1.6.0\WebGrease.1.6.0.nupkg" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="README.md" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\OriginalSaved\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -393,7 +383,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <PropertyGroup>
@@ -414,7 +403,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50316</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50316/</IISUrl>
+          <IISUrl>http://localhost:50317/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

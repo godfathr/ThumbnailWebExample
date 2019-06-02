@@ -1,7 +1,9 @@
 ﻿using ImageThumbnailCreator;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ThumbnailWebExample.Controllers
@@ -9,36 +11,51 @@ namespace ThumbnailWebExample.Controllers
     public class HomeController : Controller
     {
         //Create an instance of the JpegThumbnailer from the "ImageThumbnailCreator" NuGet package
-        private static JpegThumbnailer jpegThumbnailer = new JpegThumbnailer();
+        private static Thumbnailer _thumbnailer = new Thumbnailer();
 
         //Define the path to the base path of your web project
         private static string projectImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content\sampleImages\");
-        
+
         //Define the folder in your project where the thumbnail will be placed
         private static string projectFolder = @"Content/sampleImages/";
-        
-        //File name(s) for the file you wish to create a thumbnail for
-        private static string largeLandscape = @"largeLandscape.jpg";
-        private static string largePortrait = @"largePortrait.jpg";
-        private static string largeSquare = @"largeSquare.jpg";
+        private static string saveOriginalFileFolder = @"Content/OriginalSaved/";
+
+        //File name(s) for the file you wish to create a thumbnail for.
+        //The file(s) would typically come from the form POST request 
+        /*
+         * e.g. Request.Files[0] for the first file 
+         *  if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase photo = Request.Files[0];
+                _thumbnailer.SaveOriginal(saveOriginalFileFolder, photo);
+                ...            
+                //...then process the thumbnails like below
+                ...
+            }
+        */
+        private static string largeJpegLandscape = @"largeLandscape.jpg";
+        private static string largeJpegPortrait = @"largePortrait.jpg";
+        private static string largeJpegSquare = @"largeSquare.jpg";
 
         public ActionResult Index()
         {
+            //Define the path to all the sample images
+            string largeJpegLandscapePath = Path.Combine(projectImageFolder, largeJpegLandscape);
+            string largeJpegPortraitPath = Path.Combine(projectImageFolder, largeJpegPortrait);
+            string largeJpegSquarePath = Path.Combine(projectImageFolder, largeJpegSquare);
+
             //Choose the width of your thumbnail. The height will be auto calculated to keep the aspect ratio intact
             float width = 300;
 
-            //Get a thumbnail for a landscape image
-            var landscapeThumbnail = jpegThumbnailer.Create(width, projectImageFolder, Path.Combine(projectImageFolder, largeLandscape));
-            ViewBag.LandscapeThumbnail = Path.Combine(projectFolder, landscapeThumbnail.Split('\\').Last());
+            //Create the thumbnails
+            var landscapeThumbnail = ProcessThumbnail(width, largeJpegLandscapePath);
+            var thumbnailPortrait = ProcessThumbnail(width, largeJpegPortraitPath);
+            var thumbnailSquare = ProcessThumbnail(width, largeJpegSquarePath);
 
-            //Get a thumbnail for a portrait image
-            var thumbnailPortrait = jpegThumbnailer.Create(width, projectImageFolder, Path.Combine(projectImageFolder, largePortrait));
-            ViewBag.PortraitThumbnail = Path.Combine(projectFolder, thumbnailPortrait.Split('\\').Last());
-
-            //Get a thumbnail for a square image
-            var thumbnailSquare = jpegThumbnailer.Create(width, projectImageFolder, Path.Combine(projectImageFolder, largeSquare));
-            ViewBag.SquareThumbnail = Path.Combine(projectFolder, thumbnailSquare.Split('\\').Last());
-
+            //Put the thumbnail paths into the viewbag
+            ViewBag.LandscapeThumbnail = Path.Combine(projectFolder, landscapeThumbnail);
+            ViewBag.PortraitThumbnail = Path.Combine(projectFolder, thumbnailPortrait);
+            ViewBag.SquareThumbnail = Path.Combine(projectFolder, thumbnailSquare);
 
             //Need this for the link on the Index view
             ViewBag.ProjectFolder = projectFolder;
@@ -47,6 +64,17 @@ namespace ThumbnailWebExample.Controllers
             ViewBag.OriginalSquareImage = $"{projectFolder}{thumbnailSquare.Split('_').Last()}";
 
             return View();
+        }
+
+        /// <summary>
+        /// Use the NuGet package ImageThumbnailCreator to create a thumbnail and return the path to the thumbnail.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="fullImagePath"></param>
+        /// <returns></returns>
+        public static string ProcessThumbnail(float width, string fullImagePath)
+        {
+            return _thumbnailer.Create(width, projectImageFolder, Path.Combine(projectImageFolder, fullImagePath)).Split('\\').Last();
         }
     }
 }
